@@ -1,15 +1,34 @@
 let audioCtx, noiseNode, isPlaying = false;
 
+// دالة التنقل الذكي بين الأعداد
 function loadOtherIssue(fileName) {
+    console.log("جاري تحميل العدد: " + fileName);
+    
+    // إزالة أي ملف بيانات قديم موجود
     const oldScript = document.getElementById('data-script');
-    if(oldScript) oldScript.remove();
+    if (oldScript) oldScript.remove();
+
+    // إنشاء عنصر سكريبت جديد
     const newScript = document.createElement('script');
     newScript.id = 'data-script';
-    newScript.src = fileName + "?v=" + new Date().getTime();
-    newScript.onload = () => { updatePage(); };
+    
+    // إضافة "رقم عشوائي" للرابط لمنع المتصفح من قراءة النسخة القديمة المخزنة
+    newScript.src = fileName + "?t=" + new Date().getTime();
+    
+    newScript.onload = () => {
+        console.log("تم تحميل البيانات بنجاح");
+        updatePage(); // تحديث النصوص فوراً
+    };
+
+    newScript.onerror = () => {
+        console.error("خطأ: لم يتم العثور على الملف " + fileName);
+        alert("عذراً، تعذر تحميل هذا العدد. تأكد من وجود الملف في GitHub بنفس الاسم.");
+    };
+
     document.body.appendChild(newScript);
 }
 
+// دالة توزيع النصوص على القالب
 function updatePage() {
     if (typeof nidalData !== 'undefined') {
         document.getElementById('badge-display').innerText = "العدد: " + nidalData.issueNumber;
@@ -19,9 +38,13 @@ function updatePage() {
         document.getElementById('main-t').innerText = nidalData.mainArticle;
         document.getElementById('sec-h').innerText = nidalData.secondHeadline;
         document.getElementById('sec-t').innerText = nidalData.secondArticle;
+        
+        // التمرير لأعلى الصفحة عند تبديل العدد
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
 
+// تشغيل الضجيج الكلاسيكي
 function toggleNoise() {
     const btn = document.getElementById('music-btn');
     if (!isPlaying) {
@@ -45,4 +68,5 @@ function toggleNoise() {
     }
 }
 
+// التنفيذ عند أول دخول للموقع
 window.onload = updatePage;

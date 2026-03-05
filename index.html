@@ -4,77 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جريدة النضال الإلكترونية</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@700&display=swap" rel="stylesheet">
+
     <style>
-        :root { --paper: #fdfaf5; --ink: #111; }
-        body { background: #121212; margin: 0; direction: rtl; font-family: 'Amiri', serif; color: var(--ink); overflow-x: hidden; }
-        
-        /* شريط التحكم العلوي */
+        /* تعريف الألوان والمتغيرات */
+        :root { 
+            --paper: #fdfaf5; 
+            --ink: #111; 
+        }
+
+        /* تنسيق الصفحة العام */
+        body { 
+            background: #121212; 
+            margin: 0; 
+            direction: rtl; 
+            font-family: 'Amiri', serif; 
+            color: var(--ink); 
+            line-height: 1.6;
+        }
+
+        /* شريط التحكم العلوي المطور */
         .controls { 
-            background: #000; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 999; border-bottom: 2px solid #333;
+            background: #000; 
+            padding: 15px 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            position: sticky; 
+            top: 0; 
+            z-index: 999; 
+            border-bottom: 2px solid #333; 
         }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
+
+        .nav-links { 
+            display: flex; 
+            gap: 20px; 
+            align-items: center; 
+        }
+
         .archive-dropdown { 
-            background: #222; color: #fff; border: 1px solid #444; padding: 6px 12px; 
-            font-family: 'Amiri'; cursor: pointer; border-radius: 4px;
+            background: #222; 
+            color: #fff; 
+            border: 1px solid #444; 
+            padding: 6px 12px; 
+            font-family: 'Amiri'; 
+            cursor: pointer; 
+            border-radius: 4px;
         }
-        .issue-badge { color: #fff; border: 1px solid #fff; padding: 5px 15px; font-weight: bold; font-size: 0.9rem; }
+
+        .issue-badge { 
+            color: #fff; 
+            border: 1px solid #fff; 
+            padding: 5px 15px; 
+            font-weight: bold; 
+            font-size: 0.9rem;
+        }
+
         .music-btn { 
-            background: #fff; border: none; padding: 8px 18px; cursor: pointer; 
-            font-family: 'Amiri'; font-weight: bold; border-radius: 4px; transition: 0.3s;
+            background: #fff; 
+            border: none; 
+            padding: 8px 18px; 
+            cursor: pointer; 
+            font-family: 'Amiri'; 
+            font-weight: bold; 
+            border-radius: 4px; 
+            transition: 0.3s;
         }
-        .music-btn:hover { background: #ddd; }
 
-        /* هيكل الجريدة الورقية */
+        .music-btn:hover { 
+            background: #ddd; 
+        }
+
+        /* تصميم ورقة الجريدة */
         .newspaper-page { 
-            width: 1000px; margin: 40px auto; background: var(--paper); padding: 60px; 
-            box-shadow: 0 0 60px rgba(0,0,0,0.9); min-height: 1200px; position: relative;
+            width: 1000px; 
+            margin: 40px auto; 
+            background: var(--paper); 
+            padding: 60px; 
+            box-shadow: 0 0 60px rgba(0,0,0,0.9); 
+            min-height: 1200px; 
         }
-        
-        /* الترويسة الرئيسية */
-        .masthead-container { text-align: center; border-bottom: 5px solid #000; margin-bottom: 20px; }
+
+        .masthead-container { 
+            text-align: center; 
+            border-bottom: 5px solid #000; 
+            margin-bottom: 20px; 
+        }
+
         .main-title { 
-            font-family: 'Noto Naskh Arabic', serif; font-size: 115px; margin: 0; 
-            line-height: 1; padding: 20px 0; letter-spacing: -3px; 
+            font-family: 'Noto Naskh Arabic', serif; 
+            font-size: 110px; 
+            margin: 0; 
+            line-height: 1; 
+            padding: 20px 0; 
+            letter-spacing: -3px; 
         }
+
         .sub-header { 
-            display: flex; justify-content: space-between; padding: 12px 10px; 
-            border-top: 2px solid #000; font-weight: bold; font-size: 1.2rem;
+            display: flex; 
+            justify-content: space-between; 
+            padding: 12px 10px; 
+            border-top: 2px solid #000; 
+            font-weight: bold; 
+            font-size: 1.1rem;
         }
 
-        /* التخطيط بالأعمدة */
-        .main-layout { display: grid; grid-template-columns: 220px 1fr 220px; gap: 40px; margin-top: 30px; }
-        .section-tag { border-bottom: 3px solid #000; font-weight: bold; margin-bottom: 15px; font-size: 1.3rem; }
-        
+        /* تقسيم الأعمدة والمحتوى */
+        .main-layout { 
+            display: grid; 
+            grid-template-columns: 220px 1fr 220px; 
+            gap: 40px; 
+            margin-top: 30px; 
+        }
+
+        .section-tag { 
+            border-bottom: 3px solid #000; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+            font-size: 1.3rem; 
+        }
+
         .weather-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; 
-            background: rgba(0,0,0,0.04); padding: 10px; border: 1px solid #000; font-size: 0.95rem;
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 8px; 
+            background: rgba(0,0,0,0.04); 
+            padding: 10px; 
+            border: 1px solid #000; 
         }
-        .w-item { display: flex; justify-content: space-between; border-bottom: 1px solid #ccc; }
 
-        .headline-xl { font-family: 'Noto Naskh Arabic', serif; font-size: 46px; margin: 0 0 20px 0; line-height: 1.2; color: #222; }
+        .w-item { 
+            display: flex; 
+            justify-content: space-between; 
+            border-bottom: 1px solid #ccc; 
+            font-size: 0.9rem;
+        }
+
+        .headline-xl { 
+            font-family: 'Noto Naskh Arabic', serif; 
+            font-size: 46px; 
+            margin: 0 0 20px 0; 
+            line-height: 1.2; 
+        }
+
         .article-columns { 
-            column-count: 2; column-gap: 35px; text-align: justify; 
-            font-size: 1.3rem; line-height: 1.75; white-space: pre-wrap; 
-        }
-        
-        .divider { border: 0; border-top: 4px double #000; margin: 40px 0; }
-        .final-footer { 
-            margin-top: 60px; border-top: 2px solid #000; text-align: center; 
-            padding-top: 20px; font-weight: bold; font-size: 1.1rem;
+            column-count: 2; 
+            column-gap: 35px; 
+            text-align: justify; 
+            font-size: 1.25rem; 
+            line-height: 1.75; 
+            white-space: pre-wrap; 
         }
 
-        @media print { .controls { display: none; } .newspaper-page { box-shadow: none; margin: 0; } }
+        .divider { 
+            border: 0; 
+            border-top: 4px double #000; 
+            margin: 40px 0; 
+        }
+
+        .final-footer { 
+            margin-top: 60px; 
+            border-top: 2px solid #000; 
+            text-align: center; 
+            padding-top: 20px; 
+            font-weight: bold; 
+        }
+
+        /* إخفاء شريط التحكم عند الطباعة */
+        @media print { 
+            .controls { display: none; } 
+            .newspaper-page { box-shadow: none; margin: 0; width: 100%; } 
+        }
     </style>
 </head>
 <body>
 
     <div class="controls">
         <div class="nav-links">
-            <div id="badge-display" class="issue-badge">تحميل...</div>
+            <div id="badge-display" class="issue-badge">العدد: ...</div>
             <select class="archive-dropdown" onchange="loadOtherIssue(this.value)">
-                <option value="news.js">العدد الحالي (الأحدث)</option>
+                <option value="news.js">العدد الحالي</option>
                 <option value="issue1.js">العدد رقم ١</option>
                 <option value="issue2.js">العدد رقم ٢</option>
             </select>
@@ -106,12 +216,12 @@
 
             <main>
                 <article>
-                    <h2 id="main-h" class="headline-xl">...</h2>
-                    <div id="main-t" class="article-columns">...</div>
+                    <h2 id="main-h" class="headline-xl">جاري التحميل...</h2>
+                    <div id="main-t" class="article-columns">يرجى التأكد من وجود ملف news.js في حسابك.</div>
                 </article>
                 <hr class="divider">
                 <article>
-                    <h3 id="sec-h" style="font-size:32px; font-family:'Noto Naskh Arabic';">...</h3>
+                    <h3 id="sec-h" style="font-size:32px; font-family:'Noto Naskh Arabic';">الخبر الثاني</h3>
                     <div id="sec-t" class="article-columns" style="column-count:1;">...</div>
                 </article>
             </main>
@@ -119,32 +229,32 @@
             <aside class="sidebar">
                 <div class="section-tag">شؤون الساعة</div>
                 <div id="side-info" style="font-style:italic; line-height:1.6; color:#444;">
-                    مساحة مخصصة للتحليلات السياسية والمقالات القصيرة. يتم تحديثها مع كل عدد جديد.
+                    مساحة مخصصة للتحليلات السياسية والمقالات القصيرة. يتم تحديثها تلقائياً.
                 </div>
             </aside>
         </div>
 
         <footer class="final-footer">
-            نشرة إلكترونية تصدر عن جريدة "النضال" - جميع الحقوق محفوظة ٢٠٢٦
+            نشرة إلكترونية تصدر عن جريدة "النضال" - جدة - ٢٠٢٦
         </footer>
     </div>
 
     <script id="data-script" src="news.js"></script>
 
     <script>
-        // دالة تبديل الأعداد (الأرشيف)
+        // دالة تبديل ملفات البيانات (الأرشيف)
         function loadOtherIssue(fileName) {
             const oldScript = document.getElementById('data-script');
             if(oldScript) oldScript.remove();
 
             const newScript = document.createElement('script');
             newScript.id = 'data-script';
-            newScript.src = fileName + "?v=" + new Date().getTime(); // لمنع الكاش
+            newScript.src = fileName + "?v=" + new Date().getTime(); // لضمان التحديث اللحظي
             newScript.onload = () => { updatePage(); };
             document.body.appendChild(newScript);
         }
 
-        // تحديث محتوى الصفحة
+        // دالة تحديث محتوى الصفحة من ملف JS
         function updatePage() {
             if (typeof nidalData !== 'undefined') {
                 document.getElementById('badge-display').innerText = "العدد: " + nidalData.issueNumber;
@@ -156,6 +266,8 @@
                 document.getElementById('sec-t').innerText = nidalData.secondArticle;
             }
         }
+
+        // تشغيل التحديث عند التحميل الأول
         window.onload = updatePage;
 
         // محرك صوت الضجيج (White Noise)
@@ -178,10 +290,10 @@
 
                 const filter = audioCtx.createBiquadFilter();
                 filter.type = "lowpass";
-                filter.frequency.value = 800; // ضجيج مكتوم وناعم
+                filter.frequency.value = 850; 
 
                 const gain = audioCtx.createGain();
-                gain.gain.value = 0.02; // مستوى هادئ جداً
+                gain.gain.value = 0.02; 
 
                 noiseNode.connect(filter).connect(gain).connect(audioCtx.destination);
                 noiseNode.start();

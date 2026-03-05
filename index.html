@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>جريدة النضال</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="controls">
+        <div class="nav-links">
+            <select id="archive-select" onchange="loadOtherIssue(this.value)"></select>
+            <button onclick="addNewIssue()" title="إضافة" style="background:#27ae60; color:white;">+</button>
+            <button onclick="editCurrentIssue()" title="تعديل">✏️</button>
+            <button onclick="deleteCurrentIssue()" title="حذف">🗑️</button>
+        </div>
+        <button id="music-btn" onclick="toggleNoise()">📻 تشغيل الضجيج</button>
+    </div>
+
+    <div class="newspaper-page">
+        <header class="masthead-container">
+            <h1 class="main-title">النضال</h1>
+            <div class="sub-header">
+                <span id="date-display">...</span>
+                <span id="issue-display">...</span>
+            </div>
+        </header>
+        <main>
+            <h2 id="main-h">جاري استعادة الأرشيف...</h2>
+            <div id="main-t" class="article-columns">...</div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

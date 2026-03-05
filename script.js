@@ -1,3 +1,75 @@
+// 1. كلمة السر الخاصة بك (غيرها كما تحب)
+const ADMIN_PASSWORD = "20009999";
+
+// 2. وظيفة التحقق من الهوية
+function checkAuth() {
+    const pass = prompt("الرجاء إدخال كلمة سر الإدارة للقيام بهذا الإجراء:");
+    if (pass === ADMIN_PASSWORD) {
+        return true;
+    } else {
+        alert("كلمة السر خاطئة! لا تملك صلاحية الوصول.");
+        return false;
+    }
+}
+
+// 3. تحديث زر الإضافة (+)
+async function addNewIssue() {
+    if (!checkAuth()) return; // يطلب الرقم السري أولاً
+
+    const mH = prompt("📌 المانشيت الرئيسي:");
+    if (!mH) return;
+    const mT = prompt("📝 نص المقال الرئيسي:");
+    const sH = prompt("📎 عنوان المقال الجانبي:");
+    const sT = prompt("🖋️ نص المقال الجانبي:");
+
+    const newEntry = {
+        issue_number: (nidalArchive.length + 1).toString(),
+        date: new Date().toLocaleDateString('ar-SA', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+        main_headline: mH,
+        main_article: mT,
+        second_headline: sH,
+        second_article: sT
+    };
+
+    const { error } = await _supabase.from('issues').insert([newEntry]);
+    if (error) alert("خطأ في النشر: " + error.message);
+    else fetchIssues();
+}
+
+// 4. تحديث زر التعديل (✏️)
+async function editCurrentIssue() {
+    if (!checkAuth()) return; // يطلب الرقم السري أولاً
+
+    const idx = document.getElementById('archive-select').value;
+    const issue = nidalArchive[idx];
+    if (!issue) return;
+
+    const newH = prompt("تعديل العنوان:", issue.main_headline);
+    const newT = prompt("تعديل النص:", issue.main_article);
+
+    if (newH && newT) {
+        const { error } = await _supabase
+            .from('issues')
+            .update({ main_headline: newH, main_article: newT })
+            .eq('id', issue.id);
+        
+        if (error) alert("خطأ في التعديل");
+        else fetchIssues();
+    }
+}
+
+// 5. تحديث زر الحذف (🗑️)
+async function deleteCurrentIssue() {
+    if (!checkAuth()) return; // يطلب الرقم السري أولاً
+
+    const idx = document.getElementById('archive-select').value;
+    const issue = nidalArchive[idx];
+    if (!issue || !confirm("هل أنت متأكد من حذف هذا العدد نهائياً؟")) return;
+
+    const { error } = await _supabase.from('issues').delete().eq('id', issue.id);
+    if (error) alert("خطأ في الحذف");
+    else fetchIssues();
+}
 // إعدادات الاتصال
 const SUPABASE_URL = 'https://rorlhuphmyaimzjkmebn.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvcmxodXBobXlhaW16amttZWJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2OTUyNzksImV4cCI6MjA4ODI3MTI3OX0.3dmBmlcv2MtyCVETHHL2JlS56CppYKyAp6llLxUuClQ';

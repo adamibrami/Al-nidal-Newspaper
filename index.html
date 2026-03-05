@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جريدة النضال - لوحة التحكم</title>
+    <title>جريدة النضال</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
     <div class="controls">
         <div class="nav-links">
-            <div id="badge-display" class="issue-badge">العدد: ...</div>
-            
-            <select id="archive-select" class="archive-dropdown" onchange="loadOtherIssue(this.value)">
-                </select>
-
-            <button onclick="addNewIssue()" title="إضافة عدد جديد" style="background:#e74c3c; color:white; border:none; border-radius:5px; padding: 5px 15px; cursor:pointer; font-weight:bold; font-size: 1.2rem; display: flex; align-items: center; gap: 5px;">
-                <span>+</span> <small style="font-size: 0.7rem; font-family: 'Amiri';">تحرير</small>
-            </button>
+            <div id="badge-display" class="issue-badge">...</div>
+            <select id="archive-select" class="archive-dropdown" onchange="loadOtherIssue(this.value)"></select>
+            <button onclick="addNewIssue()" style="background:#e74c3c; color:white; border:none; border-radius:5px; padding: 5px 15px; cursor:pointer; font-weight:bold;">+</button>
         </div>
-        
         <button id="music-btn" onclick="toggleNoise()" class="music-btn">📻 تشغيل الضجيج</button>
     </div>
 
@@ -30,7 +25,7 @@
             <div class="sub-header">
                 <span id="date-display">...</span>
                 <span>جدة، المملكة العربية السعودية</span>
-                <span id="issue-display">العدد: ...</span>
+                <span id="issue-display">...</span>
             </div>
         </header>
 
@@ -40,14 +35,12 @@
                 <div class="weather-grid">
                     <div class="w-item"><span>جدة</span><span>٣١°</span></div>
                     <div class="w-item"><span>القدس</span><span>١٨°</span></div>
-                    <div class="w-item"><span>القاهرة</span><span>٢٢°</span></div>
-                    <div class="w-item"><span>بيروت</span><span>٢٠°</span></div>
                 </div>
             </aside>
 
             <main>
                 <article>
-                    <h2 id="main-h" class="headline-xl">جاري تحميل الأخبار...</h2>
+                    <h2 id="main-h" class="headline-xl">جاري جلب آخر الأعداد...</h2>
                     <div id="main-t" class="article-columns">...</div>
                 </article>
                 <hr class="divider">
@@ -56,18 +49,8 @@
                     <div id="sec-t" class="article-columns" style="column-count:1;">...</div>
                 </article>
             </main>
-
-            <aside class="sidebar">
-                <div class="section-tag">شؤون الساعة</div>
-                <div id="side-info" style="font-style:italic; line-height:1.6; color:#444;">
-                    مساحة مخصصة للتحليلات الفلسفية والمقالات القصيرة.
-                </div>
-            </aside>
         </div>
-
-        <footer class="final-footer">
-            نشرة إلكترونية تصدر عن جريدة "النضال" - جدة - ٢٠٢٦
-        </footer>
+        <footer class="final-footer">نشرة إلكترونية تصدر عن جريدة "النضال" - ٢٠٢٦</footer>
     </div>
 
     <script src="script.js"></script>
